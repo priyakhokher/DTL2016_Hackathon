@@ -7,7 +7,14 @@ from bs4 import BeautifulSoup
 import urllib
 import csv
 import nltk
+import gensim
+from gensim.summarization import summarize
+from gensim.summarization import keywords
 
+
+
+
+privacy = []
 if __name__ == '__main__':
 	company = []      # list for appending name of the companies
 	privacy_terms_url = []  # list for appending the urls
@@ -29,15 +36,21 @@ if __name__ == '__main__':
 		lists = soup.find_all("li")
 
 
-	for k in lists[:15]:
-		print k
-		markup = str(k)
-		soup = BeautifulSoup(markup,'lxml')
-		print soup.get_text().encode("utf-8")
-		print 
-		break
+	for k in lists[0:5]:
+		#print k
+		try:
+			markup = str(k)
+			soup = BeautifulSoup(markup,'lxml')
+			text = soup.get_text().encode("utf-8")
+			print
+			
+			print summarize(text)
+			break
+		except:
+			pass
+		#break
 
-	
+
 
 
 		
